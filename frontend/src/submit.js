@@ -1,4 +1,4 @@
-const API_BASE = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
+const API_BASE = process.env.REACT_APP_API_URL || "";
 
 export async function submitPipeline(nodes, edges) {
   try {
@@ -35,6 +35,7 @@ Valid DAG: ${data.is_dag ? "Yes" : "No"}
     window.alert(message);
   } catch (error) {
     console.error("Pipeline submission failed:", error);
-    window.alert("Error connecting to backend. Is the server running at " + API_BASE + "?");
+    const hint = API_BASE ? " at " + API_BASE : " (run backend: uvicorn main:app --reload from backend folder)";
+  window.alert("Error connecting to backend." + hint);
   }
 }

@@ -28,12 +28,65 @@ code {
   z-index: 30;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   padding: 14px 24px;
   pointer-events: none;
 }
-.app-top-bar .submit-button {
+.app-top-bar > * {
   pointer-events: auto;
+}
+
+/* Zoom controls: top-left (never overlaps Submit) */
+.bottom-left-panel {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.zoom-controls {
+  position: fixed;
+  top: 70px;
+  left: 20px;
+  z-index: 26;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
+  background: rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(51, 65, 85, 0.6);
+}
+.zoom-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+  background: radial-gradient(circle at 0 0, rgba(148, 163, 184, 0.2), transparent 55%);
+  color: #e5e7eb;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+.zoom-btn:last-of-type {
+  border-bottom: none;
+}
+.zoom-btn:hover {
+  background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.18), transparent 55%);
+}
+.zoom-btn:active {
+  background: rgba(51, 65, 85, 0.5);
+}
+.bottom-left-panel .submit-button {
+  margin: 0;
 }
 
 .submit-button {
@@ -63,46 +116,6 @@ code {
   box-shadow: 0 12px 32px rgba(34, 197, 94, 0.6);
 }
 
-/* Zoom (+ / − / fit) at left-center, stacked vertically */
-.react-flow__panel.react-flow__controls {
-  bottom: auto !important;
-  left: 20px !important;
-  right: auto !important;
-  top: 50% !important;
-  transform: translateY(-50%);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
-  background: rgba(15, 23, 42, 0.96);
-  z-index: 25;
-  display: flex;
-  flex-direction: column;
-}
-
-.react-flow__controls-button {
-  width: 44px;
-  height: 44px;
-  font-size: 20px;
-  color: #e5e7eb;
-  border-color: rgba(51, 65, 85, 0.9);
-  background: radial-gradient(circle at 0 0, rgba(148, 163, 184, 0.35),
-      transparent 55%);
-  border-radius: 0;
-}
-.react-flow__controls-button + .react-flow__controls-button {
-  border-top: 1px solid rgba(51, 65, 85, 0.6);
-}
-.react-flow__controls-button:first-child {
-  border-radius: 12px 12px 0 0;
-}
-.react-flow__controls-button:last-child {
-  border-radius: 0 0 12px 12px;
-}
-
-.react-flow__controls-button:hover {
-  background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.18),
-      transparent 55%);
-}
 
 /* Node connection handles – visible and easy to drag (n8n-style) */
 .react-flow__handle {
