@@ -90,7 +90,3 @@ http://127.0.0.1:8000<br>
 
 #You should see:
 {"Ping":"Pong"}
-
-# Example Pipeline
-
-Example AI workflow built using the editor:
