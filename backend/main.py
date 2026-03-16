@@ -5,6 +5,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -22,11 +25,6 @@ app.add_middleware(
 class Pipeline(BaseModel):
     nodes: List[Any] = []
     edges: List[Any] = []
-
-
-@app.get("/")
-def root():
-    return {"Ping":"Pong"}
 
 
 @app.post("/pipelines/parse")
@@ -99,3 +97,10 @@ def parse_pipeline(pipeline: Pipeline):
             "is_dag": False,
             "error": str(exc),
         }
+
+
+app.mount("/static", StaticFiles(directory="build/static"), name="static")
+
+@app.get("/")
+def serve_react():
+    return FileResponse("build/index.html")
